@@ -1,0 +1,99 @@
+.chip {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 6px 16px;
+  border-radius: 40px;
+  background-color: var(--bg-200);
+  color: var(--color-title);
+  cursor: pointer;
+  font-size: var(--text-md);
+  line-height: 22px;
+  border: 1px solid var(--bg-200);
+  width: fit-content;
+  transition: 300ms;
+  position: relative;
+}
+.chip .selectBox {
+  position: absolute;
+  height: calc(100% + 5px);
+  width: 100%;
+  top: -3px;
+  left: 0px;
+}
+.chip .selectBox > div {
+  margin: 0;
+}
+.chip .icon {
+  display: flex;
+  align-items: center;
+}
+.chip .icon svg {
+  height: 18px;
+  width: 18px;
+}
+.chip:hover {
+  border-color: var(--primary);
+  background-color: var(--bg);
+}
+.chip.static {
+  cursor: default;
+}
+.chip.static:hover {
+  background-color: var(--bg-200);
+  border-color: var(--bg-200);
+}
+.chip.redChip {
+  border-color: var(--red);
+  background-color: var(--red-100);
+  color: var(--red);
+}
+.chip.redChip:hover {
+  background-color: var(--red-100);
+  border-color: var(--red);
+}
+.chip.redChip .icon svg {
+  color: var(--red);
+}
+.chip.greenChip {
+  border-color: var(--green);
+  background-color: var(--green-100);
+  color: var(--green);
+}
+.chip.greenChip:hover {
+  background-color: var(--green-100);
+  border-color: var(--green);
+}
+.chip.greenChip .icon svg {
+  color: var(--green);
+}
+.chip.yellowChip {
+  border-color: var(--yellow);
+  background-color: var(--yellow-100);
+  color: #ffb64d;
+}
+.chip.yellowChip:hover {
+  border-color: var(--yellow);
+  background-color: var(--yellow-100);
+}
+.chip.yellowChip .icon svg {
+  color: var(--yellow);
+}
+.chip.selected {
+  border-color: var(--primary);
+  background-color: var(--primary);
+  color: var(--white);
+}
+.chip.selected .icon svg {
+  color: var(--white);
+}
+.chip.small {
+  padding: 4px 8px;
+  font-size: var(--text-sm);
+  line-height: 16px;
+  font-weight: 500;
+}
+.chip.small .icon svg {
+  height: 15px;
+  width: 15px;
+}

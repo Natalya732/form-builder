@@ -1,0 +1,37 @@
+.navbar{
+    height: 4rem;
+    background-color:aliceblue ;
+    width: 100vw;
+    padding: 20px;
+}
+.nav{
+    /* padding-right: 4rem; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.nav img{
+    height: 75px;
+    width: 75px;
+    border-radius: 50%;
+}
+.logoBox{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+.icons{
+    display: flex;
+    align-items: center;
+    margin-right: 4rem;
+    gap: 2rem;
+}
+.icons i{
+    cursor: pointer;
+    font-size: 20px;
+    transition: 200ms ease-out;
+}
+.icons i:hover{
+  transform: scale(1.5);
+}

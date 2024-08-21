@@ -1,0 +1,36 @@
+.page {
+    max-width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.innerForm {
+  margin-top: 30px;
+}
+.customInputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 90%;
+}
+
+.label{
+    font-size: 18px;
+    font-weight: 500;
+    color: rgb(123, 129, 142);
+
+}
+.input, .textarea {
+    box-sizing: border-box; 
+    border: 1px solid rgb(178, 181, 189);
+    padding: 12px;
+    outline: none;
+    font-size: 15px;
+    border-radius: 5px;
+    margin-bottom: 18px;
+    width: 100%; /* Ensures they fill the available width */
+  }
+  

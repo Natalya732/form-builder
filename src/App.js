@@ -1,5 +1,5 @@
 import React from "react";
-import SignIn from "./pages/signIn/SignIn";
+import Auth from "./pages/Auth/Auth";
 import {
   createBrowserRouter,
   RouterProvider,
@@ -11,11 +11,15 @@ export default function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <SignIn />,
+      element: <Home/>,
     },
     {
-      path: "/dashboard",
-      element: <Home />,
+      path: "/signup",
+      element: <Auth />,
+    },
+    {
+      path : "/login",
+      element : <Auth isSigned/>
     },
     {
       path: "/create-form",

@@ -1,8 +1,8 @@
 import React, { forwardRef, useEffect, useMemo, useRef, useState } from "react";
 import { Eye, EyeOff } from "react-feather";
 
-import { handleNumericInputKeyDown } from "@/utils/util";
-import { arrowDownIcon, arrowUpIcon, autoIcon } from "@/utils/svg";
+import { handleNumericInputKeyDown } from "../../utils/util";
+import { arrowDownIcon, arrowUpIcon, autoIcon } from  "../../utils/svg";
 
 import styles from "./InputControl.module.css";
 

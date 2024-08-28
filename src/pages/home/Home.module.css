@@ -35,6 +35,7 @@
   color: var(--text-color);
   font-size: var(--text-3xl);
   white-space: nowrap;
+  background-clip: inherit;
   display: inline-block;
   overflow: hidden;
   border-right: 2px solid var(--text-color);

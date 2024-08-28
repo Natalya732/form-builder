@@ -19,16 +19,16 @@ export default function Auth({ isSigned = false }) {
   });
 
   const switchOptions = {
-  login : (
-    <div>
-      New ? <a onClick={()=> navigate("/signup")}>Create and account</a>
-    </div>
-  ),
-  signup : (
-    <div>
-      Already logged in? <a onClick={()=> navigate("/login")}>Login</a>
-    </div>
-  )
+    login: (
+      <div>
+        New ? <a onClick={() => navigate("/signup")}>Create and account</a>
+      </div>
+    ),
+    signup: (
+      <div>
+        Already a user? <a onClick={() => navigate("/login")}>Login</a>
+      </div>
+    ),
   };
 
   const handleSubmit = () => {
@@ -61,7 +61,7 @@ export default function Auth({ isSigned = false }) {
         {!isSigned && (
           <div className={styles.customInput}>
             <InputControl
-              label="Name"
+              label="Full Name"
               autofocus
               inputClass={styles.input}
               value={state?.name}
@@ -81,17 +81,6 @@ export default function Auth({ isSigned = false }) {
             error={errors?.email}
           />
         </div>
-        <div className={styles.customInput}>
-          <InputControl
-            label="Password"
-            autofocus
-            password
-            inputClass={styles.input}
-            value={state?.password}
-            onChange={(e) => handleChange(e, "password")}
-            error={errors?.password}
-          />
-        </div>
         {!isSigned && (
           <div className={styles.customInput}>
             <InputControl
@@ -105,12 +94,28 @@ export default function Auth({ isSigned = false }) {
             />
           </div>
         )}
+        <div className={styles.customInput}>
+          <InputControl
+            label="Password"
+            autofocus
+            password
+            inputClass={styles.input}
+            value={state?.password}
+            onChange={(e) => handleChange(e, "password")}
+            error={errors?.password}
+          />
+        </div>
 
+        {/* <input type="checkbox" />
+        <div>I have read and accept terms and conditions</div>
+         */}
         <div className={styles.buttonContainer}>
           <button className={styles.button} onClick={handleSubmit}>
             {!isSigned ? "Sign up" : "Login"}
           </button>
-          <button className={`${styles.button}`} onClick={()=> navigate("/")}>Cancel</button>
+          <button className={`${styles.button}`} onClick={() => navigate("/")}>
+            Cancel
+          </button>
         </div>
 
         <div className={styles.switching}>

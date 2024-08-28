@@ -1,36 +1,85 @@
 .page {
-    max-width: 100vw;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
+  width: 100%;
+  min-height: 100vh;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  padding-bottom: 150px;
+  background-color: rgb(253, 176, 176);
+  gap: 23px;
 }
-
+.heading {
+  color: rgb(249, 246, 246);
+}
+/* .heading {
+  background: linear-gradient(to right, #9a2a60, #b9791a);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-size: var(--text-3xl);
+  font-weight: 700;
+} */
 .innerForm {
-  margin-top: 30px;
+  background-color: rgb(226, 166, 166);
+  padding: 18px;
+  border-radius: 12px;
 }
 .customInputGroup {
+  max-width: 100%;
+  margin-top: 18px;
   display: flex;
   flex-direction: column;
   gap: 12px;
-  width: 90%;
 }
-
-.label{
-    font-size: 18px;
-    font-weight: 500;
-    color: rgb(123, 129, 142);
-
+.input {
+  padding: 4px 10px;
 }
-.input, .textarea {
-    box-sizing: border-box; 
-    border: 1px solid rgb(178, 181, 189);
-    padding: 12px;
-    outline: none;
-    font-size: 15px;
-    border-radius: 5px;
-    margin-bottom: 18px;
-    width: 100%; /* Ensures they fill the available width */
-  }
-  
+.button {
+  width: 150px;
+  height: 40px;
+  gap: 12px;
+  margin-top: 12px;
+  background-color: rgb(179, 68, 86);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+}
+.addLink {
+  cursor: pointer;
+  color: rgb(61, 61, 195);
+  font-weight: 600;
+}
+.deleteLink {
+  cursor: pointer;
+  color: rgb(183, 29, 29);
+  font-weight: 600;
+}
+.questionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+}
+.optionRadio {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  color: white;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 50px;
+  margin-top: 23px;
+}
+.optionRadio p{
+  display: flex;
+  flex-direction: row;
+  width: 350px !important;
+  font-weight: 600;
+  font-size: medium;
+}

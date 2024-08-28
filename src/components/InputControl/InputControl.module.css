@@ -11,7 +11,7 @@
   margin: 3px 0;
   transition: 300ms;
 
-  &:hover {
+  basicInput:hover {
     border: 1px solid var(--bg-200);
   }
 

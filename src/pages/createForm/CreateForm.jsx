@@ -23,6 +23,11 @@ export default function CreateForm() {
     ],
   });
 
+  const [errors, setErrors] = useState({
+    name: "",
+    description: "",
+  });
+
   const handleAddition = () => {
     setFormState((prev) => ({
       ...prev,
@@ -47,7 +52,7 @@ export default function CreateForm() {
       questionInfo: prev.questionInfo.filter((itm) => itm.id !== item.id),
     }));
   };
-  console.log("formState", formState);
+
   const handleChange = (e, index, name, optionArrIndex) => {
     setFormState((prev) => {
       //Create a deep copy of questions Array to avoid direct mutations
@@ -84,6 +89,7 @@ export default function CreateForm() {
 
         default:
           updatedQuestion[name] = e.target.value;
+          errors[name] = "";
           break;
       }
 
@@ -94,6 +100,25 @@ export default function CreateForm() {
         questionInfo: updatedArray,
       };
     });
+  };
+
+  const validateForm = () => {
+    const errors = {};
+    if (formState.name) errors.formName = "FormName is required field";
+    if (formState.description)
+      errors.description = "Description is required field";
+
+    if (Object.keys(errors).length) {
+      setErrors(errors);
+      return false;
+    } else {
+      setErrors({});
+      return true;
+    }
+  };
+  const handleSubmit = () => {
+    if (!validateForm()) return;
+    console.log("hehe");
   };
 
   useEffect(() => {
@@ -108,7 +133,9 @@ export default function CreateForm() {
           Preview Form
         </button>
       </div>
-      {showPreview && <Preview formState={formState} onClose={()=> setShowPreview(false)}/>}
+      {showPreview && (
+        <Preview formState={formState} onClose={() => setShowPreview(false)} />
+      )}
       <div className={styles.innerForm}>
         <h2 style={{ color: "white" }}>Basic Form Info</h2>
         <div className={styles.customInputGroup}>
@@ -147,7 +174,9 @@ export default function CreateForm() {
           Add new Question +{" "}
         </p>
       </div>
-      <button className={styles.button}>Submit Form</button>
+      <button className={styles.button} onClick={() => handleSubmit()}>
+        Submit Form
+      </button>
     </div>
   );
 }

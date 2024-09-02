@@ -23,7 +23,7 @@ const InputControl = forwardRef(
       hintText = "",
       icon,
       numericInput = false,
-      value = "",
+      value ,
       disabled = false,
       onChange,
       preventChangeByDragging = false,
@@ -204,7 +204,7 @@ const InputControl = forwardRef(
 
             if (onChange) onChange(event);
           }}
-          value={autoActive ? "auto" : value || undefined}
+          value={autoActive ? "auto" : value }
           disabled={autoActive ? true : disabled}
           {...props}
         />

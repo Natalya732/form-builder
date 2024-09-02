@@ -1,0 +1,137 @@
+.button {
+	 width: fit-content;
+	 display: flex;
+	 gap: 5px;
+	 justify-content: center;
+	 align-items: center;
+	 padding: 10px 20px;
+	 border: none;
+	 outline: none;
+	 font-size: 16px;
+	 font-weight: 500;
+	 border-radius: 8px;
+	 background-color: var(--primary);
+	 color: var(--white);
+	 cursor: pointer;
+	 margin: 1px;
+	 transition: 200ms;
+	 white-space: nowrap;
+	 border: 1px solid transparent;
+}
+ .button:hover {
+	 background-position-x: 55%;
+}
+ .button:hover .icon {
+	 fill: var(--white);
+}
+ .button:active {
+	 transform: scale(0.95);
+}
+ .button > div {
+	 margin: 0;
+}
+ .button img {
+	 height: 20px;
+	 width: 20px;
+	 margin-left: 5px;
+}
+ .button .icon {
+	 height: 18px;
+	 width: 18px;
+	 margin-left: 8px;
+	 fill: var(--white);
+}
+ .button-outline {
+	 background: var(--colot-title);
+	 color: var(--primary);
+	 border: 2px solid var(--primary);
+	 font-weight: 600;
+}
+ .button-outline:hover {
+	 color: var(--primary);
+}
+ .button-outline:hover .icon {
+	 fill: var(--primary);
+}
+ .button-outline .icon {
+	 fill: var(--primary);
+	 stroke-width: 2px;
+}
+ .button-cancel {
+	 border: 1px solid transparent;
+	 background: transparent;
+	 color: var(--color-title);
+}
+ .button-cancel:hover {
+	 background-color: var(--bg-100);
+	 border: 1px solid var(--bg-200);
+}
+ .button-cancel:hover .icon {
+	 fill: var(--bg-300);
+}
+ .button-cancel .icon {
+	 fill: var(--black);
+}
+ .button-disabled {
+	 background: var(--bg-200);
+	 width: fit-content;
+	 color: var(--color-title);
+	 border-color: var(--bg-300) !important;
+	 cursor: not-allowed;
+}
+ .button-disabled svg {
+	 color: var(--primary);
+}
+ .button-disabled:hover {
+	 background: var(--bg-200);
+	 color: var(--color-title);
+}
+ .button-disabled:hover svg {
+	 color: var(--primary);
+}
+ .button-disabled:hover .icon {
+	 fill: var(--primary);
+}
+ .button-disabled:active {
+	 transform: translateY(0) !important;
+	 transform: scale(1) !important;
+}
+ .button-disabled .icon {
+	 fill: var(--primary);
+}
+ .outline-button-disabled {
+	 color: var(--primary);
+	 border-color: var(--primary);
+	 background: var(--bg-200);
+}
+ .outline-button-disabled:hover {
+	 color: var(--primary);
+	 background: var(--bg-200);
+}
+ .buttonDelete {
+	 width: fit-content;
+	 border: 1px solid var(--red);
+	 color: var(--colot-title);
+	 background: var(--red);
+}
+ .buttonDelete:hover {
+	 background: var(--colot-title);
+	 color: var(--red);
+}
+ .buttonDelete.button-outline {
+	 background-color: var(--colot-title);
+	 color: var(--red);
+}
+ @media (max-width: var(--breakpoint-md)) {
+	 .button {
+		 height: 33px;
+		 font-size: 0.875rem;
+	}
+}
+ .styled_button {
+	 padding: 10px 15px;
+	 background-color: transparent;
+	 border: 2px solid var(--primary);
+	 border-radius: 6px;
+}
+ 

@@ -1,21 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./Home.module.css";
 import { useNavigate } from "react-router-dom";
 import { ArrowRight } from "react-feather";
 
 export default function Home() {
   const navigate = useNavigate();
+  useEffect(() => {
+    localStorage.removeItem("formState");
+  }, []);
   return (
     <div className={styles.page}>
       <div className={styles.upperPage}>
         <div className={styles.title}>
           <h2>EASYFORMS</h2>
-          <p className={styles.typed}>Create forms that engage and change ... </p>
-          <button
-            className={styles.button}
-            onClick={() => navigate("/login")}
-          >
-            Get Started  <ArrowRight />
+          <p className={styles.typed}>
+            Create forms that engage and change ...{" "}
+          </p>
+          <button className={styles.button} onClick={() => navigate("/login")}>
+            Get Started <ArrowRight />
           </button>
         </div>
       </div>
@@ -53,7 +55,6 @@ export default function Home() {
               </div>
             </div>
           </div>
-          
         </div>
       </div>
     </div>

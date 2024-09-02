@@ -1,0 +1,58 @@
+.innerForm {
+    background-color: rgb(226, 166, 166);
+    padding: 18px;
+    border-radius: 12px;
+  }
+.questionBox {
+  background-color: rgb(226, 166, 166);
+  padding: 18px;
+  border-radius: 12px;
+}
+.customInputGroup {
+  max-width: 100%;
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.input {
+  padding: 4px 10px;
+  color: #000;
+}
+.label{
+  color: #fff;
+}
+.addLink {
+  cursor: pointer;
+  color: rgb(61, 61, 195);
+  font-weight: 600;
+}
+.deleteLink {
+  cursor: pointer;
+  color: rgb(183, 29, 29);
+  font-weight: 600;
+}
+.questionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+}
+.optionRadio {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  color: white;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 50px;
+  margin-top: 23px;
+}
+.optionRadio p {
+  display: flex;
+  flex-direction: row;
+  width: 350px !important;
+  font-weight: 600;
+  font-size: medium;
+}

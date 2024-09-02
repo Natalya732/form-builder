@@ -31,6 +31,7 @@ const InputControl = forwardRef(
       showAuto = false,
       isAuto = false,
       inputStyles = {},
+      labelClass,
       ...props
     },
     ref
@@ -246,7 +247,7 @@ const InputControl = forwardRef(
         style={typeof containerStyles == "object" ? { ...containerStyles } : {}}
       >
         {label && (
-          <label className={styles.label}>
+          <label className={`${styles.label} ${labelClass}`}>
             {label}
             <span> {subLabel}</span>
           </label>

@@ -5,6 +5,7 @@ export default function Dropdown({
   dropdownClass,
   containerClassName,
   label,
+  labelClass,
   error,
   options,
   selectedOption,
@@ -61,7 +62,7 @@ export default function Dropdown({
 
   return (
     <div className={`${styles.container} ${containerClassName}`}>
-      {label && <label className={styles.label}>{label}</label>}
+      {label && <label className={`${styles.label} ${labelClass}`}>{label}</label>}
       {dropdownComponent}
       {error ? <p className={`${styles.errorMsg}`}>{error}</p> : ""}
     </div>

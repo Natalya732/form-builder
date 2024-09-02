@@ -60,7 +60,6 @@
     font-size: var(--text-md);
     line-height: 22px;
     font-weight: 400;
-    color: var(--color-label);
 
     span {
       font-size: 0.875rem;

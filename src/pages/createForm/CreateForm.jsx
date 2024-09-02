@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./createForm.module.css";
 import InputControl from "../../components/InputControl/InputControl";
 import TextareaControl from "../../components/TextareaControl/TextareaControl";
-import Dropdown from "../../components/Dropdown/Dropdown";
+import Question from "../../components/Question/Question";
+import Preview from "../../components/Preview/Preview";
 
 export default function CreateForm() {
+  const [showPreview, setShowPreview] = useState(false);
   const [formState, setFormState] = useState({
     name: "",
     description: "",
@@ -13,24 +15,13 @@ export default function CreateForm() {
         id: Date.now(),
         title: "",
         type: "",
-        num: "",
+        inputType: "",
+        optionsNumber: "",
         multiple: "",
         options: [],
       },
     ],
   });
-
-  const options = [
-    { name: "Input Field", value: "input" },
-    { name: "Textarea", value: "textarea" },
-    { name: "Radio Buttons", value: "radio" },
-    { name: "Checkboxes", value: "checkbox" },
-  ];
-
-  const checkboxOptions = [
-    { name: "Multiple", value: "multiple" },
-    { name: "Single", value: "single" },
-  ];
 
   const handleAddition = () => {
     setFormState((prev) => ({
@@ -56,23 +47,68 @@ export default function CreateForm() {
       questionInfo: prev.questionInfo.filter((itm) => itm.id !== item.id),
     }));
   };
+  console.log("formState", formState);
+  const handleChange = (e, index, name, optionArrIndex) => {
+    setFormState((prev) => {
+      //Create a deep copy of questions Array to avoid direct mutations
+      const updatedArray = [...prev.questionInfo];
 
-  const handleChange = (e, index, name) => {
-    let updatedArray = [...formState.questionInfo];
-    console.log("updatedARR0", updatedArray);
-    if (name === "type" || name === "multiple") {
-      updatedArray[index][name] = e.value;
-    } else if (name === "options") {
-      updatedArray[index]?.options.push(e);
-    } else {
-      updatedArray[index][name] = e.target.value;
-    }
-    setFormState((prev) => ({ ...prev, questionInfo: updatedArray }));
+      //Update the specific question object at the given index
+      const updatedQuestion = { ...updatedArray[index] };
+
+      switch (name) {
+        case "type":
+          updatedQuestion[name] = e.value;
+          updatedQuestion.options = [];
+          updatedQuestion.optionsNumber = "";
+          break;
+
+        case "inputType":
+        case "multiple":
+          updatedQuestion[name] = e.value;
+          break;
+
+        case "options":
+          if (!updatedQuestion.options) {
+            updatedQuestion.options = [];
+          }
+          updatedQuestion.options.push(e);
+          break;
+
+        case "optionArr":
+          if (!updatedQuestion.options) {
+            updatedQuestion.options = [];
+          }
+          updatedQuestion.options[optionArrIndex] = e.target.value;
+          break;
+
+        default:
+          updatedQuestion[name] = e.target.value;
+          break;
+      }
+
+      updatedArray[index] = updatedQuestion;
+
+      return {
+        ...prev,
+        questionInfo: updatedArray,
+      };
+    });
   };
+
+  useEffect(() => {
+    localStorage.setItem("formState", JSON.stringify(formState));
+  }, [formState]);
 
   return (
     <div className={styles.page}>
-      <h1 className={styles.heading}>CREATE FORM</h1>
+      <div className={styles.questionHeader}>
+        <h1>CREATE FORM</h1>
+        <button className={styles.button} onClick={() => setShowPreview(true)}>
+          Preview Form
+        </button>
+      </div>
+      {showPreview && <Preview formState={formState} onClose={()=> setShowPreview(false)}/>}
       <div className={styles.innerForm}>
         <h2 style={{ color: "white" }}>Basic Form Info</h2>
         <div className={styles.customInputGroup}>
@@ -99,99 +135,13 @@ export default function CreateForm() {
           />
         </div>
       </div>
-      {formState?.questionInfo?.map((item, index) => (
-        <div className={styles.innerForm} key={item.id}>
-          <div className={styles.questionHeader}>
-            <h2>Questions</h2>
-            <p
-              className={styles.deleteLink}
-              onClick={() => handleDelete(item, index)}
-            >
-              - Delete Question
-            </p>
-          </div>
-          <div className={styles.customInputGroup}>
-            <InputControl
-              label="Question Title"
-              autoFocus
-              inputClass={styles.input}
-              value={item.title}
-              onChange={(e) => handleChange(e, index, "title")}
-            />
-          </div>
-          <div className={styles.customInputGroup}>
-            <Dropdown
-              label="Question Type"
-              options={options}
-              selectedOption={
-                options.find((option) => option.value === item.type) || {
-                  name: "Select a Type",
-                  value: "",
-                }
-              }
-              handleSelected={(option) => handleChange(option, index, "type")}
-            />
-          </div>
-          {item.type === "checkbox" && (
-            <div className={styles.customInputGroup}>
-              <Dropdown
-                label="Can multiple checkboxes be selected?"
-                options={checkboxOptions}
-                selectedOption={
-                  checkboxOptions.find(
-                    (option) => option.value === item.multiple
-                  ) || {
-                    name: "Select an Option",
-                    value: "",
-                  }
-                }
-                handleSelected={(option) =>
-                  handleChange(option, index, "multiple")
-                }
-              />
-            </div>
-          )}
-          {(item.type === "radio" || item.type === "checkbox") && (
-            <div className={styles.customInputGroup}>
-              <InputControl
-                label="Enter the number of options you require"
-                autoFocus
-                type="number"
-                inputClass={styles.input}
-                value={item.num}
-                onChange={(e) => handleChange(e, index, "num")}
-              />
-            </div>
-          )}
-          {Array.from({ length: item.num || 0 })
-            .fill()
-            .map((_, idex) => (
-              <div className={styles.optionRadio} key={idex}>
-                <p>Option {idex + 1} Text</p>
-                <InputControl
-                  inputClass={styles.input}
-                  value={item.options[idex] || ""} // Display existing value or empty string
-                  onChange={(e) => {
-                    let updatedArray = [...formState.questionInfo];
 
-                    // Initialize optionsArr if it doesn't exist
-                    if (!updatedArray[index].options) {
-                      updatedArray[index].options = [];
-                    }
+      <Question
+        formState={formState}
+        handleChange={handleChange}
+        handleDelete={handleDelete}
+      />
 
-                    // Update the options array
-                    updatedArray[index].options[idex] = e.target.value;
-
-                    setFormState((prev) => ({
-                      ...prev,
-                      questionInfo: updatedArray,
-                    }));
-                  }}
-                />
-              </div>
-            ))}
-        </div>
-      ))}
       <div className={styles.innerForm}>
         <p className={styles.addLink} onClick={handleAddition}>
           Add new Question +{" "}

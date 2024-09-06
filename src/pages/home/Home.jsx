@@ -2,12 +2,25 @@ import React, { useEffect } from "react";
 import styles from "./Home.module.css";
 import { useNavigate } from "react-router-dom";
 import { ArrowRight } from "react-feather";
+import query from "utils/query";
+import Button from "components/Button/Button";
+import Switch from "components/Switch/Switch";
 
 export default function Home() {
   const navigate = useNavigate();
+
+  // ********************************** Getting forms for current User *****************************************************
+  const getFormOfUser = async () => {
+    const forms = await query("/forms", undefined, "GET");
+
+    if (forms) console.log("formsa re", forms);
+  };
+
   useEffect(() => {
     localStorage.removeItem("formState");
+    getFormOfUser();
   }, []);
+
   return (
     <div className={styles.page}>
       <div className={styles.upperPage}>
@@ -16,20 +29,15 @@ export default function Home() {
           <p className={styles.typed}>
             Create forms that engage and change ...{" "}
           </p>
-          <button className={styles.button} onClick={() => navigate("/login")}>
+          <Button onClick={() => navigate("/login")}>
             Get Started <ArrowRight />
-          </button>
+          </Button>
         </div>
       </div>
       <div className={styles.lowerPage}>
         <div className={styles.header}>
           <h2 className={styles.heading}>All Projects</h2>
-          <button
-            className={styles.button}
-            onClick={() => navigate("/create-form")}
-          >
-            Create form
-          </button>
+          <Button onClick={() => navigate("/create-form")}>Create form</Button>
         </div>
         <div className={styles.formContainer}>
           <div className={styles.box}>

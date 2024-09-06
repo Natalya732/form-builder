@@ -4,6 +4,7 @@ import InputControl from "../../components/InputControl/InputControl";
 import TextareaControl from "../../components/TextareaControl/TextareaControl";
 import Question from "../../components/Question/Question";
 import Preview from "../../components/Preview/Preview";
+import Button from "components/Button/Button";
 
 export default function CreateForm() {
   const [showPreview, setShowPreview] = useState(false);
@@ -26,6 +27,7 @@ export default function CreateForm() {
   const [errors, setErrors] = useState({
     name: "",
     description: "",
+    questionInfo: [],
   });
 
   const handleAddition = () => {
@@ -104,9 +106,9 @@ export default function CreateForm() {
 
   const validateForm = () => {
     const errors = {};
-    if (formState.name) errors.formName = "FormName is required field";
-    if (formState.description)
-      errors.description = "Description is required field";
+    if (!formState.name) errors.name = "Name of Form is required field";
+    if (!formState.description)
+      errors.description = "Description of Form is required field";
 
     if (Object.keys(errors).length) {
       setErrors(errors);
@@ -117,10 +119,12 @@ export default function CreateForm() {
     }
   };
   const handleSubmit = () => {
-    if (!validateForm()) return;
-    console.log("hehe");
+    if (!validateForm()){
+      console.log("validation failed")
+      return;}
+    console.log("validation success");
   };
-
+console.log("errors", errors)
   useEffect(() => {
     localStorage.setItem("formState", JSON.stringify(formState));
   }, [formState]);
@@ -129,9 +133,9 @@ export default function CreateForm() {
     <div className={styles.page}>
       <div className={styles.questionHeader}>
         <h1>CREATE FORM</h1>
-        <button className={styles.button} onClick={() => setShowPreview(true)}>
+        <Button onClick={() => setShowPreview(true)}>
           Preview Form
-        </button>
+        </Button>
       </div>
       {showPreview && (
         <Preview formState={formState} onClose={() => setShowPreview(false)} />
@@ -139,11 +143,12 @@ export default function CreateForm() {
       <div className={styles.innerForm}>
         <h2 style={{ color: "white" }}>Basic Form Info</h2>
         <div className={styles.customInputGroup}>
-          <InputControl
+        <InputControl
             label="Form Name"
             autoFocus
             inputClass={styles.input}
             value={formState.name}
+            error={errors?.name}
             onChange={(e) =>
               setFormState((prev) => ({ ...prev, name: e.target.value }))
             }
@@ -156,6 +161,7 @@ export default function CreateForm() {
             rows={4}
             columns={6}
             value={formState.description}
+            error={errors?.description}
             onChange={(e) =>
               setFormState((prev) => ({ ...prev, description: e.target.value }))
             }
@@ -174,9 +180,9 @@ export default function CreateForm() {
           Add new Question +{" "}
         </p>
       </div>
-      <button className={styles.button} onClick={() => handleSubmit()}>
+    <Button onClick={handleSubmit}>
         Submit Form
-      </button>
+      </Button>
     </div>
   );
 }

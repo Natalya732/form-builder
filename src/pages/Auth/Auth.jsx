@@ -3,9 +3,8 @@ import styles from "./Auth.module.css";
 import InputControl from "../../components/InputControl/InputControl";
 import { useNavigate } from "react-router-dom";
 import query from "../../utils/query";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 import Button from "components/Button/Button";
-import Spinner from "components/Spinner/Spinner";
 
 export default function Auth({ isSigned = false }) {
   const navigate = useNavigate();
@@ -52,11 +51,28 @@ export default function Auth({ isSigned = false }) {
   };
 
   const loginMutation = async () => {
+    if (submitting) return;
     const payload = {
       email: state.email,
       password: state.password,
     };
-    return await query("/users/login", JSON.stringify(payload));
+    setSubmitting(true);
+
+    const response = await query("/users/login", JSON.stringify(payload));
+    if (response) {
+      setSubmitting(false);
+      toast.success("Logged in Successfully");
+      localStorage.setItem("token", JSON.stringify(response.token))
+      navigate("/")
+      setTimeout(() => {
+        window.scrollTo({
+            top: window.innerHeight, // Scroll to 100vh
+            behavior: 'smooth' // Smooth scrolling
+        });
+    }, 100)
+    }
+    setSubmitting(false);
+    return response;
   };
 
   // ******************************************* Functions ***********************************************
@@ -64,18 +80,29 @@ export default function Auth({ isSigned = false }) {
   const validateForm = () => {
     const errors = {};
 
-    if (!state.email) errors.email = "Enter email";
-    else if (
-      !/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(
-        state.email
+    if (isSigned) {
+      if (!state.email) errors.email = "Enter email";
+      else if (
+        !/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(
+          state.email
+        )
       )
-    )
-      errors.email = "Invalid email";
-    if (!state.password) errors.password = "Enter password";
-    if (!state.name) errors.name = "Enter name";
-    if (!state.phone) errors.phone = "Enter Phone";
-    else if (state.phone.length > 10) {
-      errors.phone = "Phone number must be of 10 digits";
+        errors.email = "Invalid email";
+      if (!state.password) errors.password = "Enter password";
+    } else {
+      if (!state.email) errors.email = "Enter email";
+      else if (
+        !/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(
+          state.email
+        )
+      )
+        errors.email = "Invalid email";
+      if (!state.password) errors.password = "Enter password";
+      if (!state.name) errors.name = "Enter name";
+      if (!state.phone) errors.phone = "Enter Phone";
+      else if (state.phone.length > 10) {
+        errors.phone = "Phone number must be of 10 digits";
+      }
     }
 
     if (Object.keys(errors).length) {
@@ -88,10 +115,15 @@ export default function Auth({ isSigned = false }) {
   };
 
   const handleSubmit = () => {
-    if (!validateForm()) return;
+    if (!validateForm()) {
+      return;
+    }
 
-    if (isSigned) loginMutation();
-    else signupMutation();
+    if (isSigned) {
+      loginMutation();
+    } else {
+      signupMutation();
+    }
   };
 
   const handleChange = (e, name) => {
@@ -102,7 +134,7 @@ export default function Auth({ isSigned = false }) {
   useEffect(() => {
     setState(newState);
   }, [isSigned]);
-  
+
   return (
     <div className={styles.page}>
       <div className={styles.container}>
@@ -123,7 +155,7 @@ export default function Auth({ isSigned = false }) {
           </div>
         )}
         <div className={styles.customInput}>
-         <InputControl
+          <InputControl
             label="Email"
             autofocus
             type="email"

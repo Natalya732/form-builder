@@ -4,7 +4,7 @@ const base_url = "https://general-purpose.onrender.com";
 export default async function query(route, body, method) {
   if (!method && body) method = "POST";
 
-  const token = localStorage.getItem("token");
+  const token = JSON.parse(localStorage.getItem("token"));
   try {
     const options = {
       method,

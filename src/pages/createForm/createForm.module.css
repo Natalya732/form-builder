@@ -36,21 +36,7 @@
 .input {
   padding: 4px 10px;
 }
-.button {
-  width: 150px;
-  height: 40px;
-  gap: 12px;
-  margin-top: 12px;
-  background-color: rgb(179, 68, 86);
-  color: white;
-  border: none;
-  border-radius: 4px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 16px;
-  cursor: pointer;
-}
+
 .addLink {
   cursor: pointer;
   color: rgb(61, 61, 195);

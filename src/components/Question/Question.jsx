@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./Question.module.css";
 import InputControl from "../InputControl/InputControl";
 import Dropdown from "../Dropdown/Dropdown";
+import Switch from "components/Switch/Switch";
 
 export default function Question({ formState, handleChange, handleDelete }) {
   const options = [
@@ -24,7 +25,7 @@ export default function Question({ formState, handleChange, handleDelete }) {
     { name: "File", value: "file" },
     { name: "URL", value: "url" },
   ];
-  console.log("inputtye", formState);
+
   return (
     <>
       {formState?.questionInfo?.map((item, index) => (
@@ -124,8 +125,14 @@ export default function Question({ formState, handleChange, handleDelete }) {
                   value={item.options[idex] || ""}
                   onChange={(e) => handleChange(e, index, "optionArr", idex)}
                 />
+
               </div>
             ))}
+
+         <div className={styles.required}>
+          <Switch label="Required Field"/>
+         </div>
+
         </div>
       ))}
     </>

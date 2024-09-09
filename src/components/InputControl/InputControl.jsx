@@ -12,6 +12,7 @@ const InputControl = forwardRef(
       small = false,
       subLabel,
       label,
+      required,
       error,
       floatingError = false,
       textInsideInput,
@@ -206,6 +207,7 @@ const InputControl = forwardRef(
           }}
           value={autoActive ? "auto" : value }
           disabled={autoActive ? true : disabled}
+          autoFocus
           {...props}
         />
 
@@ -249,6 +251,7 @@ const InputControl = forwardRef(
         {label && (
           <label className={`${styles.label} ${labelClass}`}>
             {label}
+            {required &&<span className={styles.required}>*</span>}
             <span> {subLabel}</span>
           </label>
         )}

@@ -28,28 +28,31 @@
   color: rgb(61, 61, 195);
   font-weight: 600;
 }
+.errorMsg {
+  color: rgb(205, 22, 22);
+  font-weight: 600;
+  font-size: 0.875rem;
+  padding-left: 3px;
+  margin-top: 8px;
+}
 .deleteLink {
   cursor: pointer;
   color: rgb(183, 29, 29);
   font-weight: 600;
 }
-.optionRadio {
+
+.option{
   display: flex;
-  justify-content: space-between;
+  gap: 8px;
+  justify-content: center;
   align-items: center;
-  width: 100%;
-  color: white;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  gap: 50px;
-  margin-top: 23px;
+  margin: 12px;
 }
-.optionRadio p {
-  display: flex;
-  flex-direction: row;
-  width: 350px !important;
-  font-weight: 600;
-  font-size: medium;
+.addOption{
+  cursor: pointer;
+  color: white;
+  font-weight: 700;
+  word-spacing: 3px;
 }
 .required {
   margin-top: 23px;

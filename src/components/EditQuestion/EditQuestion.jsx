@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
-
 import InputControl from "../InputControl/InputControl";
 import Dropdown from "../Dropdown/Dropdown";
 import Switch from "components/Switch/Switch";
-
 import { questionTypeEnum } from "utils/enums";
-
 import styles from "./EditQuestion.module.css";
 
 const options = [
@@ -24,7 +21,13 @@ const inputOptions = [
   { name: "URL", value: "url" },
 ];
 
-function EditQuestion({ questionData = {}, onChange, errors = {}, index }) {
+function EditQuestion({
+  questionData = {},
+  onChange,
+  errors = {},
+  index,
+  handleDelete,
+}) {
   const [values, setValues] = useState({
     options: [],
     ...questionData,
@@ -39,10 +42,10 @@ function EditQuestion({ questionData = {}, onChange, errors = {}, index }) {
   return (
     <div className={styles.question}>
       <div className={styles.questionHeader}>
-       <div>Question {index + 1}</div> 
+        <div>Question {index + 1}</div>
         <p
           className={styles.deleteLink}
-          //   onClick={() => handleDelete(quesitonData, index)}
+          onClick={() => handleDelete(questionData.id, index)}
         >
           Delete Question
         </p>
@@ -55,31 +58,34 @@ function EditQuestion({ questionData = {}, onChange, errors = {}, index }) {
           labelClass={styles.label}
           value={values.title}
           error={errors.title}
-          onChange={(e) => setValues((p) => ({ ...p, title: e.target.value }))}
+          onChange={(e) => {
+            setValues((p) => ({ ...p, title: e.target.value }));
+          }}
         />
       </div>
-        <div className={styles.customInputGroup} style={{ flex: "1" }}>
-          <Dropdown
-            label="Question Type"
-            options={options}
-            labelClass={styles.label}
-            error={errors.type}
-            selectedOption={
-              options.find((option) => option.value === values.type) || {
-                name: "Select a Type",
-                value: "",
-              }
+      <div className={styles.customInputGroup} style={{ flex: "1" }}>
+        <Dropdown
+          label="Question Type"
+          options={options}
+          labelClass={styles.label}
+          error={errors.type}
+          selectedOption={
+            options.find((option) => option.value === values.type) || {
+              name: "Select a Type",
+              value: "",
             }
-            handleSelected={(option) =>
-              setValues((p) => ({ ...p, type: option.value }))
-            }
-          />
+          }
+          handleSelected={(option) =>
+            setValues((p) => ({ ...p, type: option.value }))
+          }
+        />
 
         {values.type === questionTypeEnum.input ? (
           <div className={styles.customInputGroup} style={{ flex: "1" }}>
             <Dropdown
               label="Select type of Input Box"
               options={inputOptions}
+              error={errors.inputType}
               selectedOption={
                 inputOptions.find(
                   (option) => option.value === values.inputType
@@ -122,11 +128,12 @@ function EditQuestion({ questionData = {}, onChange, errors = {}, index }) {
 
           <br />
           <div
+          className={styles.addOption}
             onClick={() => {
               setValues((p) => ({ ...p, options: [...p.options, ""] }));
             }}
           >
-            +Add option
+            + Add option <p className={styles.errorMsg}>{errors.option}</p>
           </div>
         </div>
       ) : (

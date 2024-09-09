@@ -8,12 +8,17 @@ export default function TextareaControl({
   rows,
   columns,
   label,
+  labelClass,
   error,
   ...props
 }) {
   return (
     <div>
-      {label && <label className={styles.label}>{label}</label>}
+      {label && (
+        <label className={`${styles.label} ${labelClass || ""}`}>
+          {label} <span>*</span>
+        </label>
+      )}
       <textarea
         rows={rows}
         cols={columns}

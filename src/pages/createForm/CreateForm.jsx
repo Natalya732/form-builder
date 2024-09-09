@@ -7,6 +7,7 @@ import Button from "components/Button/Button";
 import { questionTypeEnum } from "utils/enums";
 import EditQuestion from "components/EditQuestion/EditQuestion";
 import query from "utils/query";
+import toast from "react-hot-toast";
 
 export default function CreateForm() {
   const [showPreview, setShowPreview] = useState(false);
@@ -19,7 +20,6 @@ export default function CreateForm() {
         title: "",
         type: "",
         inputType: "",
-        optionsNumber: "",
         multiple: "",
         options: [],
         required: false,
@@ -51,11 +51,14 @@ export default function CreateForm() {
     }));
   };
 
-  const handleDelete = (item, index) => {
-    if (index === 0) return;
+  const handleDelete = (id, index) => {
+    if (index === 0) {
+      toast.error("At least one question is required")
+      return;
+    };
     setFormState((prev) => ({
       ...prev,
-      questions: prev.questions.filter((itm) => itm.id !== item.id),
+      questions: prev.questions.filter((itm) => itm.id !== id),
     }));
   };
 
@@ -65,16 +68,15 @@ export default function CreateForm() {
     if (!question.title) errors.title = "Title required";
     if (!question.type) errors.type = "Type required";
 
+    if (question.type === questionTypeEnum.input || !question.inputType) {
+      errors.inputType = "Select type of input field";
+    }
     if (
       question.type === questionTypeEnum.radio ||
       question.type === questionTypeEnum.checkbox
     ) {
       if (!question.options?.length)
-        errors.options = "Please enter at least one option";
-
-      if (question.optionsNumber !== question.options?.length)
-        errors.optionsNumber =
-          "Options number does not match the number of options provided.";
+        errors.option = "Please add at least one option";
     }
 
     return { valid: Object.keys(errors).length ? false : true, errors };
@@ -116,11 +118,6 @@ export default function CreateForm() {
     const res = await query("/forms", formState);
     console.log("response", res);
   };
-
-
-  useEffect(() => {
-    localStorage.setItem("formState", JSON.stringify(formState));
-  }, [formState]);
 
   return (
     <div className={styles.page}>
@@ -164,6 +161,7 @@ export default function CreateForm() {
           key={question.id}
           questionData={question}
           errors={errors?.questions[index]}
+          handleDelete = {handleDelete}
           index={index}
           onChange={(data) =>
             setFormState((prev) => ({

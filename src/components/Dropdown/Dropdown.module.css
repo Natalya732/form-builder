@@ -85,7 +85,7 @@ Clicked styles
 .label {
   color: white;
   font-size: var(--text-md);
-  line-height: 22px;
+  /* line-height: 22px; */
   font-weight: 400;
 }
 .errorMsg {
@@ -93,4 +93,5 @@ Clicked styles
   font-weight: 600;
   font-size: 0.875rem;
   padding-left: 3px;
+  margin-top: 5px;
 }

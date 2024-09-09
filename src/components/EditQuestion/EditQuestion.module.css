@@ -1,12 +1,13 @@
-.innerForm {
-    background-color: rgb(226, 166, 166);
-    padding: 18px;
-    border-radius: 12px;
-  }
-.questionBox {
+.question {
   background-color: rgb(226, 166, 166);
   padding: 18px;
   border-radius: 12px;
+}
+.questionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
 }
 .customInputGroup {
   max-width: 100%;
@@ -19,7 +20,7 @@
   padding: 4px 10px;
   color: #000;
 }
-.label{
+.label {
   color: #fff;
 }
 .addLink {
@@ -31,12 +32,6 @@
   cursor: pointer;
   color: rgb(183, 29, 29);
   font-weight: 600;
-}
-.questionHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: white;
 }
 .optionRadio {
   display: flex;
@@ -56,6 +51,6 @@
   font-weight: 600;
   font-size: medium;
 }
-.required{
-  margin-top:23px
+.required {
+  margin-top: 23px;
 }

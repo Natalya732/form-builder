@@ -10,12 +10,12 @@ export default async function query(route, body, method) {
       method,
       headers: {
         "Content-Type": "application/json",
-        token,
+        Authorization: token,
       },
     };
 
     if (method !== "GET" || method !== "DELETE") {
-      options.body = body;
+      options.body = JSON.stringify(body);
     }
     const response = await fetch(base_url + route, options);
     const json = await response.json();
@@ -26,7 +26,7 @@ export default async function query(route, body, method) {
       console.error(json.message);
       return false;
     }
-   
+
     return json.data;
   } catch (error) {
     toast.error(error.message);

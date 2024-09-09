@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { ArrowRight } from "react-feather";
 import query from "utils/query";
 import Button from "components/Button/Button";
-import Switch from "components/Switch/Switch";
 
 export default function Home() {
   const navigate = useNavigate();

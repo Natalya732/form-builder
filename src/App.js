@@ -4,6 +4,7 @@ import Auth from "./pages/Auth/Auth";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./pages/home/Home";
 import CreateForm from "./pages/createForm/CreateForm";
+import User from "pages/User/User";
 
 export default function App() {
   const router = createBrowserRouter([
@@ -23,6 +24,10 @@ export default function App() {
       path: "/create-form",
       element: <CreateForm />,
     },
+    {
+      path : "/user",
+      element : <User/>
+    }
   ]);
 
   return (

@@ -6,13 +6,15 @@ import { questionTypeEnum } from "utils/enums";
 import TextareaControl from "components/TextareaControl/TextareaControl";
 
 export default function Preview({ formState, onClose }) {
-  console.log("preview,", formState);
+  const noQuestionsPresent =
+    formState.questions.length <= 1 && !formState.questions[0]?.title;
 
   const renderQuestion = (question = {}) => {
-    if (!question.title) return <div>No question provided</div>;
+    if (noQuestionsPresent)
+      return <div className="bold-text md mt-3">No questions provided ...</div>;
     if (question.type === questionTypeEnum.input)
       return (
-        <div className={styles.customInputGroup}>
+        <div className={styles.customInputGroup} key={question.id}>
           <InputControl
             label={question.title}
             inputClass={styles.input}
@@ -24,11 +26,12 @@ export default function Preview({ formState, onClose }) {
       );
     if (question.type === questionTypeEnum.textarea)
       return (
-        <div className={styles.customInputGroup}>
+        <div className={styles.customInputGroup} key={question.id}>
           <TextareaControl
             label={question.title}
             className={styles.textarea}
             labelClass={styles.label}
+            required={question.required}
           />
         </div>
       );
@@ -74,7 +77,7 @@ export default function Preview({ formState, onClose }) {
           <div className={styles.formBody}>
             {formState.questions.map(renderQuestion)}
           </div>
-          <Button>Submit</Button>
+          {!noQuestionsPresent && <Button>Submit</Button>}
         </div>
       </div>
     </div>

@@ -10,13 +10,14 @@ export default function TextareaControl({
   label,
   labelClass,
   error,
+  required,
   ...props
 }) {
   return (
     <div>
       {label && (
         <label className={`${styles.label} ${labelClass || ""}`}>
-          {label} <span>*</span>
+          {label} {required && <span>*</span>}
         </label>
       )}
       <textarea

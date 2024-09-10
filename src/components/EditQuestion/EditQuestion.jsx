@@ -60,6 +60,7 @@ function EditQuestion({
           error={errors.title}
           onChange={(e) => {
             setValues((p) => ({ ...p, title: e.target.value }));
+            
           }}
         />
       </div>

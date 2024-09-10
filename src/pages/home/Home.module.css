@@ -62,7 +62,7 @@
 .lowerPage {
   background-color: rgb(248, 207, 214);
   width: 100%;
-  height: 100vh;
+  /* height: 100vh; */
   overflow: auto;
   display: flex;
   gap: 30px;
@@ -93,84 +93,6 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 30px;
   width: 100%;
-}
-
-.box {
-  width: 450px;
-  margin: auto;
-  background-color: rgb(216, 117, 134);
-  color: #fff;
-  height: 240px;
-  border-radius: 12px;
-  padding: 24px;
-  overflow: hidden;
-  box-shadow: 4px 4px 2px 2px rgb(165, 161, 161);
-}
-
-.content {
-  width: 100%;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-
-.inlineText p {
-  display: inline;
-}
-
-.buttonContainer {
-  background-color: transparent;
-  display: flex;
-  gap: 21px;
-  margin-top: 12px;
-}
-
-.description {
-  height: 75px; 
-  width: 100%; 
-  display: -webkit-box; /* Use a flexbox container */
-  -webkit-box-orient: vertical; /* Set the orientation to vertical */
-  -webkit-line-clamp: 3; /* Number of lines before showing ellipsis */
-  overflow: hidden;
-  text-overflow: ellipsis;
-  line-height: 1.5;
-}
-
-.inactiveButton {
-  width: 80px;
-  height: 35px;
-  background-color: #eee;
-  color: black;
-  border: none;
-  border-radius: 4px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 16px;
-  transition: 0.1s ease-in-out;
-}
-.inactiveButton:hover {
-  background-color: rgb(179, 97, 111);
-  color: white;
-}
-
-.submitButton {
-  width: 120px;
-  height: 35px;
-  background-color: #eee;
-  color: black;
-  border: none;
-  border-radius: 4px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 16px;
-  transition: 0.1s ease-in-out;
-}
-.submitButton:hover {
-  background-color: rgb(179, 97, 111);
-  color: white;
 }
 
 @media screen and (max-width: 1250px) {

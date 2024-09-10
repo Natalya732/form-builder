@@ -8,8 +8,10 @@ import { questionTypeEnum } from "utils/enums";
 import EditQuestion from "components/EditQuestion/EditQuestion";
 import query from "utils/query";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 export default function CreateForm() {
+  const navigate = useNavigate();
   const [showPreview, setShowPreview] = useState(false);
   const [formState, setFormState] = useState({
     name: "",
@@ -53,9 +55,9 @@ export default function CreateForm() {
 
   const handleDelete = (id, index) => {
     if (index === 0) {
-      toast.error("At least one question is required")
+      toast.error("At least one question is required");
       return;
-    };
+    }
     setFormState((prev) => ({
       ...prev,
       questions: prev.questions.filter((itm) => itm.id !== id),
@@ -123,7 +125,10 @@ export default function CreateForm() {
     <div className={styles.page}>
       <div className={styles.questionHeader}>
         <h1>CREATE FORM</h1>
-        <Button onClick={() => setShowPreview(true)}>Preview Form</Button>
+        <div style={{ display: "flex", gap: "12px" }}>
+          <Button onClick={() => navigate("/user")}>Cancel</Button>
+          <Button onClick={() => setShowPreview(true)}>Preview Form</Button>
+        </div>
       </div>
       {showPreview && (
         <Preview formState={formState} onClose={() => setShowPreview(false)} />
@@ -161,14 +166,15 @@ export default function CreateForm() {
           key={question.id}
           questionData={question}
           errors={errors?.questions[index]}
-          handleDelete = {handleDelete}
+          handleDelete={handleDelete}
           index={index}
-          onChange={(data) =>
+          onChange={(data) => {
+            console.log("data", data);
             setFormState((prev) => ({
               ...prev,
               questions: prev.questions.map((q, i) => (i === index ? data : q)),
-            }))
-          }
+            }));
+          }}
         />
       ))}
       <div className={styles.innerForm}>

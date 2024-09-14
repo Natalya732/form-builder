@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "./createForm.module.css";
 import InputControl from "../../components/InputControl/InputControl";
 import TextareaControl from "../../components/TextareaControl/TextareaControl";
@@ -34,7 +34,7 @@ export default function CreateForm() {
     description: "",
     questions: [],
   });
-console.log({formStaet: formState, errors : errors})
+
   // *************************************************** Functions **************************************************
   const handleAddition = () => {
     setFormState((prev) => ({
@@ -111,24 +111,24 @@ console.log({formStaet: formState, errors : errors})
       return true;
     }
   };
-  
+
   // *************************************************************** Create Form Integration ***************************************************************
-  
-    const handleSubmit = async () => {
-      if (!validateForm()) {
-        console.log("validation failed");
-        return;
-      }
-      const res = await query("/forms", formState);
-      console.log("response", res);
-    };
+
+  const handleSubmit = async () => {
+    if (!validateForm()) {
+      console.log("validation failed");
+      return;
+    }
+    const res = await query("/forms", formState);
+    console.log("response", res);
+  };
 
   return (
     <div className={styles.page}>
       <div className={styles.questionHeader}>
         <h1>CREATE FORM</h1>
         <div style={{ display: "flex", gap: "12px" }}>
-        <Button onClick={() => navigate("/user")}>View Profile</Button>
+          <Button onClick={() => navigate("/user")}>View Profile</Button>
           <Button onClick={() => navigate(-1)}>Cancel</Button>
           <Button onClick={() => setShowPreview(true)}>Preview Form</Button>
         </div>
@@ -145,9 +145,10 @@ console.log({formStaet: formState, errors : errors})
             inputClass={styles.input}
             value={formState.name}
             error={errors?.name}
-            onChange={(e) =>
-              setFormState((prev) => ({ ...prev, name: e.target.value }))
-            }
+            onChange={(e) => {
+              setFormState((prev) => ({ ...prev, name: e.target.value }));
+              setErrors((prev) => ({ ...prev, name: "" }));
+            }}
           />
         </div>
         <div className={styles.customInputGroup}>
@@ -158,9 +159,13 @@ console.log({formStaet: formState, errors : errors})
             columns={6}
             value={formState.description}
             error={errors?.description}
-            onChange={(e) =>
-              setFormState((prev) => ({ ...prev, description: e.target.value }))
-            }
+            onChange={(e) => {
+              setFormState((prev) => ({
+                ...prev,
+                description: e.target.value,
+              }));
+              setErrors((prev) => ({ ...prev, description: "" }));
+            }}
           />
         </div>
       </div>
@@ -171,10 +176,16 @@ console.log({formStaet: formState, errors : errors})
           errors={errors?.questions[index]}
           handleDelete={handleDelete}
           index={index}
-          onChange={(data) => {
+          onChange={(data, errors) => {
             setFormState((prev) => ({
               ...prev,
               questions: prev.questions.map((q, i) => (i === index ? data : q)),
+            }));
+            setErrors((prevErr) => ({
+              ...prevErr,
+              questions: prevErr.questions.map((q, i) =>
+                i === index ? errors : q
+              ),
             }));
           }}
         />

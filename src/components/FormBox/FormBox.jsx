@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./FormBox.module.css";
 import { Trash2 } from "react-feather";
 export default function FormBox({ data, index, handleDialog }) {
-  console.log("data si", data._id)
+
   return (
     <div className={styles.box} key={index}>
       <div className={styles.content}>

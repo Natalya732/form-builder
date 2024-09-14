@@ -28,6 +28,7 @@ function EditQuestion({
   index,
   handleDelete,
 }) {
+  
   const [values, setValues] = useState({
     options: [],
     ...questionData,
@@ -35,9 +36,17 @@ function EditQuestion({
     type: questionData.type,
   });
 
+  const [errorValues, setErrorValues] = useState({
+    ...errors,
+    title: errors.title,
+    type: errors.type,
+    inputType: errors.inputType,
+    option: errors.option,
+  });
+
   useEffect(() => {
-    if (onChange) onChange(values);
-  }, [values]);
+    if (onChange) onChange(values, errorValues);
+  }, [values, errorValues]);
 
   return (
     <div className={styles.question}>
@@ -60,7 +69,7 @@ function EditQuestion({
           error={errors.title}
           onChange={(e) => {
             setValues((p) => ({ ...p, title: e.target.value }));
-            
+            setErrorValues((prev) => ({ ...prev, title: "" }));
           }}
         />
       </div>
@@ -76,9 +85,10 @@ function EditQuestion({
               value: "",
             }
           }
-          handleSelected={(option) =>
-            setValues((p) => ({ ...p, type: option.value }))
-          }
+          handleSelected={(option) => {
+            setValues((p) => ({ ...p, type: option.value }));
+            setErrorValues((p) => ({ ...p, type: "" }));
+          }}
         />
 
         {values.type === questionTypeEnum.input ? (
@@ -95,9 +105,10 @@ function EditQuestion({
                   value: "",
                 }
               }
-              handleSelected={(option) =>
-                setValues((p) => ({ ...p, inputType: option.value }))
-              }
+              handleSelected={(option) => {
+                setValues((p) => ({ ...p, inputType: option.value }));
+                setErrorValues((p) => ({ ...p, inputType: "" }));
+              }}
             />
           </div>
         ) : (
@@ -115,21 +126,23 @@ function EditQuestion({
                 placeholder="Enter option"
                 inputClass={styles.input}
                 value={option}
-                onChange={(e) =>
+                onChange={(e) => {
                   setValues((p) => ({
                     ...p,
                     options: p.options.map((item, i) =>
                       i === index ? e.target.value : item
                     ),
-                  }))
-                }
+                  }));
+
+                  setErrorValues((p) => ({ ...p, option: "" }));
+                }}
               />
             </div>
           ))}
 
           <br />
           <div
-          className={styles.addOption}
+            className={styles.addOption}
             onClick={() => {
               setValues((p) => ({ ...p, options: [...p.options, ""] }));
             }}

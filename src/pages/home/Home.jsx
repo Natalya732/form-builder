@@ -2,7 +2,6 @@ import React, { useEffect , useState} from "react";
 import styles from "./Home.module.css";
 import { useNavigate } from "react-router-dom";
 import { ArrowRight } from "react-feather";
-import query from "utils/query";
 import Button from "components/Button/Button";
 import FormBox from "components/FormBox/FormBox";
 

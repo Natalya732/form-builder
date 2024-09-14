@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Toaster } from "react-hot-toast";
 import Auth from "./pages/Auth/Auth";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -7,6 +7,7 @@ import CreateForm from "./pages/createForm/CreateForm";
 import User from "pages/User/User";
 
 export default function App() {
+
   const router = createBrowserRouter([
     {
       path: "/",
@@ -25,9 +26,9 @@ export default function App() {
       element: <CreateForm />,
     },
     {
-      path : "/user",
-      element : <User/>
-    }
+      path: "/user",
+      element: <User />,
+    },
   ]);
 
   return (

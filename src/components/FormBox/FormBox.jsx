@@ -1,14 +1,18 @@
 import React from "react";
 import styles from "./FormBox.module.css";
-export default function FormBox() {
+import { Trash2 } from "react-feather";
+export default function FormBox({ data, index, handleDialog }) {
+  console.log("data si", data._id)
   return (
-    <div className={styles.box}>
+    <div className={styles.box} key={index}>
       <div className={styles.content}>
-        <h2>This is form heading</h2>
-        <p className={styles.description}>
-          This is some description of above heading which is aashu's form. and
-          has been written with love
-        </p>
+        <div className={styles.formboxHeader}>
+          <h2>{data?.name}</h2>
+          <span onClick={() => handleDialog(data?._id)}>
+            <Trash2 />
+          </span>
+        </div>
+        <p className={styles.description}>{data?.description}</p>
         <div className={styles.inlineText}>
           <p>Questions : </p>
           <p className="bold-text">5</p>
@@ -16,7 +20,7 @@ export default function FormBox() {
 
         <div className={styles.inlineText}>
           <p>Submissions : </p>
-          <p className="bold-text">15</p>
+          <p className="bold-text">{data?.submissionCount}</p>
         </div>
 
         <div className={styles.buttonContainer}>

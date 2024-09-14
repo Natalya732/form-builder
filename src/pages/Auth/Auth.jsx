@@ -42,7 +42,7 @@ export default function Auth({ isSigned = false }) {
     if (submitting) return;
 
     setSubmitting(true);
-    const user = await query("/users/signup", JSON.stringify(state));
+    const user = await query("/users/signup", state);
     setSubmitting(false);
     if (!user) return;
 
@@ -58,7 +58,7 @@ export default function Auth({ isSigned = false }) {
     };
     setSubmitting(true);
 
-    const response = await query("/users/login", JSON.stringify(payload));
+    const response = await query("/users/login", payload);
     if (response) {
       setSubmitting(false);
       toast.success("Logged in Successfully");

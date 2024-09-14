@@ -34,8 +34,8 @@ export default function CreateForm() {
     description: "",
     questions: [],
   });
-
-  // *************************************************** integration **************************************************
+console.log({formStaet: formState, errors : errors})
+  // *************************************************** Functions **************************************************
   const handleAddition = () => {
     setFormState((prev) => ({
       ...prev,
@@ -70,7 +70,7 @@ export default function CreateForm() {
     if (!question.title) errors.title = "Title required";
     if (!question.type) errors.type = "Type required";
 
-    if (question.type === questionTypeEnum.input || !question.inputType) {
+    if (question.type === questionTypeEnum.input && !question.inputType) {
       errors.inputType = "Select type of input field";
     }
     if (
@@ -111,22 +111,25 @@ export default function CreateForm() {
       return true;
     }
   };
-
-  const handleSubmit = async () => {
-    if (!validateForm()) {
-      console.log("validation failed");
-      return;
-    }
-    const res = await query("/forms", formState);
-    console.log("response", res);
-  };
+  
+  // *************************************************************** Create Form Integration ***************************************************************
+  
+    const handleSubmit = async () => {
+      if (!validateForm()) {
+        console.log("validation failed");
+        return;
+      }
+      const res = await query("/forms", formState);
+      console.log("response", res);
+    };
 
   return (
     <div className={styles.page}>
       <div className={styles.questionHeader}>
         <h1>CREATE FORM</h1>
         <div style={{ display: "flex", gap: "12px" }}>
-          <Button onClick={() => navigate("/user")}>Cancel</Button>
+        <Button onClick={() => navigate("/user")}>View Profile</Button>
+          <Button onClick={() => navigate(-1)}>Cancel</Button>
           <Button onClick={() => setShowPreview(true)}>Preview Form</Button>
         </div>
       </div>
@@ -169,7 +172,6 @@ export default function CreateForm() {
           handleDelete={handleDelete}
           index={index}
           onChange={(data) => {
-            console.log("data", data);
             setFormState((prev) => ({
               ...prev,
               questions: prev.questions.map((q, i) => (i === index ? data : q)),

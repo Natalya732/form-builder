@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect , useState} from "react";
 import styles from "./Home.module.css";
 import { useNavigate } from "react-router-dom";
 import { ArrowRight } from "react-feather";
@@ -8,18 +8,24 @@ import FormBox from "components/FormBox/FormBox";
 
 export default function Home() {
   const navigate = useNavigate();
-
-  // ********************************** Getting forms for current User *****************************************************
-  const getFormOfUser = async () => {
-    const forms = await query("/forms", undefined, "GET");
-
-    if (forms) console.log("formsa re", forms);
-  };
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    getFormOfUser();
+    const listener = () => {
+      const token = localStorage.getItem("token");
+      setIsAuthenticated(!!token); 
+    };
+  
+    listener();
+  
+    window.addEventListener("storage", listener); 
+  
+    return () => window.removeEventListener("storage", listener); 
   }, []);
+  
 
+  console.log("tokan", isAuthenticated);
+ 
   return (
     <div className={styles.page}>
       <div className={styles.upperPage}>
@@ -28,8 +34,13 @@ export default function Home() {
           <p className={styles.typed}>
             Create forms that engage and change ...{" "}
           </p>
-          <Button onClick={() => navigate("/login")}>
-            Get Started <ArrowRight />
+          <Button
+            onClick={() => {
+              if (isAuthenticated) navigate("/user");
+              else navigate("/login");
+            }}
+          >
+            {isAuthenticated ? "Manage Your Forms" : "Get Started"} <ArrowRight />
           </Button>
         </div>
       </div>

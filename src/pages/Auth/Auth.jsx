@@ -47,7 +47,7 @@ export default function Auth({ isSigned = false }) {
     if (!user) return;
 
     toast.success("Signed up successfully");
-    console.log(user);
+    navigate("/login");
   };
 
   const loginMutation = async () => {
@@ -62,14 +62,8 @@ export default function Auth({ isSigned = false }) {
     if (response) {
       setSubmitting(false);
       toast.success("Logged in Successfully");
-      localStorage.setItem("token", JSON.stringify(response.token))
-      navigate("/")
-      setTimeout(() => {
-        window.scrollTo({
-            top: window.innerHeight, // Scroll to 100vh
-            behavior: 'smooth' // Smooth scrolling
-        });
-    }, 100)
+      localStorage.setItem("token", JSON.stringify(response.token));
+      navigate("/");
     }
     setSubmitting(false);
     return response;

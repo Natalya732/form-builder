@@ -20,3 +20,8 @@ export const handleNumericInputKeyDown = (event) => {
       if (event.preventDefault) event.preventDefault(); 
     } 
   };
+
+  export const capitilizeString = (str) => {
+    if(!str) return;
+    return str.split(" ").map(item => item.charAt(0).toUpperCase() + item.slice(1)).join(" ");
+  }

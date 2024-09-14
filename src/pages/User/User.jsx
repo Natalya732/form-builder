@@ -7,11 +7,14 @@ import FormBox from "components/FormBox/FormBox";
 import { useNavigate } from "react-router-dom";
 import query from "utils/query";
 import Dialog from "components/Dialog/Dialog";
+import Loader from "components/Loader/Loader";
+import { capitilizeString } from "utils/util";
 
 export default function User() {
   const navigate = useNavigate();
   const [showDialog, setShowDialog] = useState(false);
   const [selectedFormId, setSelectedFormId] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [userForms, setUserForms] = useState([]);
   const [userState, setUserState] = useState({
     name: "",
@@ -31,27 +34,46 @@ export default function User() {
     navigate("/");
   };
 
+  const getUserDetails = async () => {
+    const res = await query("/users/me", undefined, "GET");
+    if (!res) return;
+    else {
+      setUserState((p) => ({
+        ...p,
+        name: res.name,
+        email: res.email,
+        phone: res.phone,
+      }));
+    }
+  };
+
   const deleteForm = async (id) => {
-    const res = await query("/forms/" + id, undefined, "Delete");
+    const res = await query("/forms/" + id, undefined, "DELETE");
     console.log("delete form response", res);
   };
 
-  // ********************************** Getting forms for current User *****************************************************
   const getFormOfUser = async () => {
+    setLoading(true);
     const forms = await query("/forms", undefined, "GET");
 
-    if (forms) setUserForms(forms);
+    if (forms) {
+      setUserForms(forms);
+      setLoading(false);
+    }
+    setLoading(false);
   };
 
   useEffect(() => {
     getFormOfUser();
+    getUserDetails();
   }, []);
 
   return (
     <div className={styles.page}>
       <div className={styles.header}>
         <span>
-          Welcome <p className={styles.title}>Nikita Pandey</p>
+          Welcome{" "}
+          <p className={styles.title}>{capitilizeString(userState?.name)}</p>
         </span>
         <p onClick={() => logoutFunction()}>
           <LogOut /> Logout
@@ -106,7 +128,10 @@ export default function User() {
               inputClass={styles.input}
               value={userState.address}
               onChange={(e) =>
-                setUserState((prev) => ({ ...prev, address: e.target.value }))
+                setUserState((prev) => ({
+                  ...prev,
+                  address: e.target.value,
+                }))
               }
             />
             <Button>Save</Button>
@@ -119,10 +144,20 @@ export default function User() {
           <h2>Your forms</h2>
           <Button onClick={() => navigate("/create-form")}>Add Form</Button>
         </div>
-        <div className={styles.formContainer}>
-          {userForms.map((item, index) => (
-            <FormBox data={item} handleDialog={handleDialog} index={index} />
-          ))}
+        <div className={styles.formBody}>
+          {loading ? (
+            <Loader />
+          ) : (
+            <div className={styles.formContainer}>
+              {userForms.map((item, index) => (
+                <FormBox
+                  data={item}
+                  handleDialog={handleDialog}
+                  index={index}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </div>
       {showDialog && (

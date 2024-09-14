@@ -21,10 +21,7 @@ export default function Home() {
   
     return () => window.removeEventListener("storage", listener); 
   }, []);
-  
-
-  console.log("tokan", isAuthenticated);
- 
+   
   return (
     <div className={styles.page}>
       <div className={styles.upperPage}>
@@ -43,14 +40,14 @@ export default function Home() {
           </Button>
         </div>
       </div>
-      <div className={styles.lowerPage}>
+      {/* <div className={styles.lowerPage}>
         <div className={styles.header}>
           <h2 className={styles.heading}>All Projects</h2>
         </div>
         <div className={styles.formContainer}>
           <FormBox />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

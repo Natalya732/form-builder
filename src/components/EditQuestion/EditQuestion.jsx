@@ -51,7 +51,7 @@ function EditQuestion({
   return (
     <div className={styles.question}>
       <div className={styles.questionHeader}>
-        <div>Question {index + 1}</div>
+        <h2>Question {index + 1}</h2>
         <p
           className={styles.deleteLink}
           onClick={() => handleDelete(questionData.id, index)}
@@ -78,6 +78,7 @@ function EditQuestion({
           label="Question Type"
           options={options}
           labelClass={styles.label}
+          dropdownClass={styles.dropdown}
           error={errors.type}
           selectedOption={
             options.find((option) => option.value === values.type) || {

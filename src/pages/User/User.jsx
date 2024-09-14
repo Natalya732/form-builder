@@ -9,6 +9,7 @@ import query from "utils/query";
 import Dialog from "components/Dialog/Dialog";
 import Loader from "components/Loader/Loader";
 import { capitilizeString } from "utils/util";
+import toast from "react-hot-toast";
 
 export default function User() {
   const navigate = useNavigate();
@@ -46,21 +47,29 @@ export default function User() {
       }));
     }
   };
-
-  const deleteForm = async (id) => {
-    const res = await query("/forms/" + id, undefined, "DELETE");
-    console.log("delete form response", res);
-  };
-
   const getFormOfUser = async () => {
     setLoading(true);
     const forms = await query("/forms", undefined, "GET");
 
-    if (forms) {
-      setUserForms(forms);
+    if (!forms) {
       setLoading(false);
+      toast.error("An Error Occured. Couldn't fetch forms");
+    }
+    setUserForms(forms);
+    setLoading(false);
+  };
+
+  const deleteForm = async (id) => {
+    setLoading(true);
+    const res = await query("/forms/" + id, undefined, "DELETE");
+    if (!res) {
+      setLoading(false);
+      toast.error("Couldn't Delete. Try Again !");
+      return;
     }
     setLoading(false);
+    getFormOfUser();
+    toast.success("Successfully Deleted!");
   };
 
   useEffect(() => {
@@ -147,7 +156,7 @@ export default function User() {
         <div className={styles.formBody}>
           {loading ? (
             <Loader />
-          ) : (
+          ) : userForms.length ? (
             <div className={styles.formContainer}>
               {userForms.map((item, index) => (
                 <FormBox
@@ -157,6 +166,8 @@ export default function User() {
                 />
               ))}
             </div>
+          ) : (
+            <h3>No forms available</h3> // Display this message if userForms is empty
           )}
         </div>
       </div>

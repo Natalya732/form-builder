@@ -6,25 +6,38 @@
   flex-direction: column;
   padding: 20px;
   padding-bottom: 150px;
-  background-color: rgb(248, 207, 214);
+  background: linear-gradient(to bottom, rgb(248, 207, 214), rgb(226, 166, 166));
   gap: 23px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
 }
-.heading {
-  color: rgb(249, 246, 246);
-}
-/* .heading {
+
+/* Alternative heading style using gradient text */
+.headingGradient {
   background: linear-gradient(to right, #9a2a60, #b9791a);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   font-size: var(--text-3xl);
   font-weight: 700;
-} */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
 .innerForm {
-  background-color: rgb(226, 166, 166);
+  background-color: rgb(201, 138, 138);
   padding: 18px;
   border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2), 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  h2{
+    color: white;
+  }
 }
+
+.innerForm:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3), 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
 .customInputGroup {
   max-width: 100%;
   margin-top: 18px;
@@ -33,14 +46,57 @@
   gap: 12px;
   color: white;
 }
+
 .input {
-  padding: 4px 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  background-color: rgba(255, 255, 255, 0.1);
+  color: black;
+  box-shadow: inset 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.input:focus {
+  outline: none;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.8), inset 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.textarea {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  background-color: rgba(255, 255, 255, 0.1);
+  color: black;
+  box-shadow: inset 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.textarea:focus {
+  outline: none;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.8), inset 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.button {
+  padding: 10px 20px;
+  background: linear-gradient(to right, #b9791a, #9a2a60);
+  color: white;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
 .addLink {
   cursor: pointer;
   color: rgb(61, 61, 195);
   font-weight: 600;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .questionHeader {
@@ -51,5 +107,15 @@
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  font-size: 24px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.loadingDiv {
+  height: 60vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 

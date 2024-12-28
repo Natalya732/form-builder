@@ -31,13 +31,6 @@
   display: inline;
 }
 
-.buttonContainer {
-  background-color: transparent;
-  display: flex;
-  gap: 21px;
-  margin-top: 12px;
-}
-
 .description {
   height: 75px;
   width: 100%;

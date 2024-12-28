@@ -49,8 +49,8 @@ function EditQuestion({
   }, [values, errorValues]);
 
   return (
-    <div className={styles.question}>
-      <div className={styles.questionHeader}>
+    <div className={`${styles.question} p-3 border-round-lg`}>
+      <div className="flex justify-content-between">
         <h2>Question {index + 1}</h2>
         <p
           className={styles.deleteLink}

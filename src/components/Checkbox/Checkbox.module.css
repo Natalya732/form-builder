@@ -1,0 +1,49 @@
+ .container {
+	 width: fit-content;
+	 display: flex;
+	 gap: var(--spacing-xs);
+	 align-items: center;
+}
+ .container .button {
+	 outline: none;
+	 cursor: pointer;
+	 border-radius: 5px;
+	 height: 22px;
+	 width: 22px;
+	 background-color: var(--bg-200);
+	 border: 1px solid var(--bg-300);
+	 transition: 200ms;
+	 padding: 1px;
+}
+ .container .button.checked {
+	 background-color: var(--primary);
+	 border-color: var(--primary);
+}
+ .container .button.checked span svg {
+	 color: var(--white);
+}
+ .container .button span {
+	 display: flex;
+	 align-items: center;
+}
+ .container .button span svg {
+	 height: 100%;
+	 width: 100%;
+	 color: var(--color-label);
+}
+ .container .label {
+	 width: fit-content;
+	 font-size: var(--text-md);
+	 font-weight: 400;
+	 cursor: pointer;
+}
+ @media (max-width: var(--breakpoint-md)) {
+	 .container .button {
+		 height: 20px;
+		 width: 20px;
+	}
+	 .container .label {
+		 font-size: var(--text-sm);
+	}
+}
+ 

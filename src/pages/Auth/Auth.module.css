@@ -1,0 +1,70 @@
+.page {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(253, 176, 176);
+}
+.back {
+  cursor: pointer;
+  font-size: small;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+.container {
+  width: 340px;
+  color: white;
+  min-height: fit-content;
+  padding: 20px;
+  box-sizing: border-box;
+  border-radius: 12px;
+  background-color: rgb(198, 144, 144);
+}
+.customInput {
+  max-width: 100%;
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.input {
+  border: none;
+  outline: none;
+  padding: 4px;
+}
+.buttonContainer {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin-top: 20px;
+  gap: 12px;
+}
+.button {
+  padding: 8px 14px;
+  font-size: 15px;
+  flex: 1;
+  font-weight: 400;
+  border: none;
+  outline: none;
+  color: rgb(148, 105, 105);
+  border-radius: 8px;
+}
+.button:hover {
+  transition: 0.4s ease-in-out;
+  background-color: rgb(148, 105, 105);
+  color: white;
+  font-size: translateY(34px);
+}
+.switching {
+  margin-top: 20px;
+  font-size: var(--text-1xl);
+  width: 100%;
+  text-align: center;
+}
+.switching div a{
+  color: rgb(96, 106, 171);
+  border-bottom: 1px solid;
+  cursor : pointer;
+  font-weight: 500;
+}

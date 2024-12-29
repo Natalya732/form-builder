@@ -1,0 +1,353 @@
+
+.basicInput {
+  outline: none;
+  padding: 10px 18px;
+  width: 100%;
+  border: 1px solid transparent;
+  background-color: var(--bg-100);
+  color: var(--color-title);
+  border-radius: 5px;
+  font-size: 1rem;
+  margin: 3px 0;
+  transition: 300ms;
+
+  basicInput:hover {
+    border: 1px solid var(--bg-200);
+  }
+
+  &:focus-within {
+    border: 1px solid var(--primary);
+    background-color: var(--bg);
+  }
+
+  &::placeholder,
+  input::placeholder {
+    color: var(--color-label);
+  }
+
+  &:disabled {
+    background-color: var(--bg-200);
+    border: 1px solid var(--bg-200);
+    color: var(--color-label);
+  }
+
+  @media (max-width: 768px) {
+    font-size: var(--text-sm);
+  }
+}
+
+.basicInputError {
+  border: 1px solid var(--red);
+
+  &:hover,
+  &:focus {
+    border: 1px solid var(--red);
+  }
+}
+
+
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  position: relative;
+  z-index: 8;
+  &:has(.selectContainer) {
+    z-index: 10;
+  }
+
+  .label {
+    font-size: var(--text-md);
+    line-height: 22px;
+    font-weight: 400;
+
+    span {
+      color: red;
+      padding-bottom: 5px;
+      margin-left: 5px;
+      font-size: 20px;
+    }
+  }
+
+  .inputContainer {
+    position: relative;
+    width: 100%;
+    height: fit-content;
+    margin: 0;
+    padding: 0px;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+
+    &:has(.activeAuto) {
+      border-color: var(--primary);
+    }
+
+    &:has(input:disabled) {
+      background-color: var(--bg-200);
+    }
+
+    &:hover,
+    &:focus-within {
+      .auto {
+        opacity: 1;
+      }
+    }
+
+    input:disabled + .numericControl {
+      background-color: var(--bg-200);
+      pointer-events: none;
+    }
+
+    &.required {
+      border-color: var(--primary-2);
+    }
+
+    .auto {
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 50%;
+      cursor: pointer;
+      padding: 1px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: inherit;
+      opacity: 0;
+      transition: 200ms;
+      font-size: 12px;
+      border-radius: 11px;
+      padding: 0px 6px;
+      color: var(--color-desc);
+
+      svg {
+        height: 18px;
+        width: 18px;
+        fill: var(--color-desc);
+      }
+    }
+
+    .activeAuto {
+      background-color: var(--primary);
+      color: var(--white);
+      opacity: 1;
+
+      svg {
+        fill: var(--primary);
+      }
+    }
+
+    .numericControl {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 4px 2px;
+      height: 100%;
+      align-items: center;
+
+      .controlIcon {
+        user-select: none;
+        cursor: n-resize;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 18px;
+        width: 18px;
+
+        &:hover {
+          svg {
+            fill: var(--black);
+          }
+        }
+
+        svg {
+          fill: var(--color-desc);
+          height: 100%;
+          width: 100%;
+          transition: 200ms;
+        }
+      }
+
+      .controlIcon.down {
+        cursor: s-resize;
+      }
+    }
+
+    .text {
+      font-size: var(--text-md);
+      line-height: 1.2;
+      font-weight: 500;
+      padding: 3px;
+      padding-left: 15px;
+    }
+
+    input {
+      flex: 1;
+      margin: 0;
+      font-size: var(--text-md);
+      line-height: 1;
+      font-weight: 400;
+      padding: var(--spacing-xs var(--spacing-sm));
+      height: 100%;
+      width: 100%;
+      outline: none;
+      border-color: transparent;
+      border-radius: 5px;
+      background-color: transparent;
+
+      &::placeholder {
+        color: var(--color-label);
+      }
+
+      &:disabled {
+        background-color: var(--bg-200);
+      }
+    }
+
+    input[type="color"] {
+      --webkit-appearance: none;
+      border: none;
+      height: 30px;
+      border-radius: 5px;
+      padding: 5px;
+    }
+    input[type="color"]::-webkit-color-swatch-wrapper {
+      padding: 0;
+    }
+    input[type="color"]::-webkit-color-swatch {
+      border: none;
+    }
+
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    .passwordInput {
+      padding-right: 31px;
+    }
+
+    .icon {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .eye {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      cursor: pointer;
+      height: 18px;
+      width: 18px;
+      transform: translateY(-50%);
+
+      svg {
+        height: 100%;
+        width: 100%;
+        color: var(--color-desc);
+      }
+    }
+
+    @media (max-width: var(--breakpoint-md)) {
+      margin: 0;
+
+      input {
+        font-size: var(--text-sm);
+        line-height: 1.1;
+        padding: var(--spacing-xs var(--spacing-2xs));
+        height: 35px;
+      }
+
+      .passwordInput {
+        padding-right: 20px;
+      }
+    }
+  }
+
+  .hint {
+    font-size: var(--text-sm);
+    line-height: 18px;
+    font-style: italic;
+    font-weight: 500;
+  }
+
+  .rippleBox {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+
+    .ripple {
+      height: 8px;
+      width: 8px;
+    }
+
+    .text {
+      font-size: 12px;
+      line-height: 12px;
+      font-weight: 600;
+      min-height: 0;
+      color: var(--primary-2);
+    }
+  }
+
+  .errorMsg {
+    color: rgb(205, 22, 22);
+    font-weight: 600;
+    font-size: 0.875rem;
+    padding-left: 3px;
+  }
+
+  .floatingError {
+    position: absolute;
+    bottom: -20px;
+  }
+}
+
+.selectContainer {
+  margin: 3px 0;
+  z-index: 8;
+}
+
+@media (max-width: var(--breakpoint-md)) {
+  .container {
+    .label {
+      font-size: 0.875rem;
+    }
+  }
+}
+
+.smallInput,
+.smallSelect {
+  gap: 2px;
+
+  .label {
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--color-desc);
+  }
+
+  .inputContainer,
+  .selectContainer {
+    height: 39px;
+    margin: 0;
+    gap: 0;
+
+    input {
+      padding: 5px 10px;
+      font-size: var(--text-sm);
+    }
+  }
+
+  .inputContainer + .hint {
+    color: var(--color-desc);
+    font-style: normal;
+    font-size: 12px;
+    line-height: 12px;
+  }
+}

@@ -1,0 +1,32 @@
+.basicTextarea {
+  outline: none;
+  padding: 5px 10px;
+  width: 100%;
+  background-color: var(--bg-100);
+  color: var(--color-title);
+  border-radius: 5px;
+  font-size: 1rem;
+  margin: 3px 0;
+  transition: 300ms;
+  border: none;
+}
+
+.basicTextarea:hover {
+  border: 1px solid var(--bg-200);
+}
+
+.basicTextarea:focus-within {
+  border: 1px solid var(--primary);
+  background-color: var(--bg);
+}
+.label {
+  font-size: var(--text-md);
+  line-height: 22px;
+  font-weight: 400;
+}
+.errorMsg {
+  color: rgb(205, 22, 22);
+  font-weight: 600;
+  font-size: 0.875rem;
+  padding-left: 3px;
+}

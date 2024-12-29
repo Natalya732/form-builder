@@ -83,7 +83,6 @@ Clicked styles
 }
 
 .label {
-  color: white;
   font-size: var(--text-md);
   /* line-height: 22px; */
   font-weight: 400;

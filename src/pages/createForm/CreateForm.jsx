@@ -114,7 +114,7 @@ export default function CreateForm() {
       return true;
     }
   };
-
+  console.log("id", id);
   // ***************************************************************  Integration ***************************************************************
 
   useEffect(() => {
@@ -142,7 +142,14 @@ export default function CreateForm() {
       toast.error("Form Validation failed");
       return;
     }
-    const res = await query("/forms", formState);
+    const editPayload = {
+      name: formState.name,
+      description: formState.description,
+      questions: formState.questions,
+    };
+    const res = id
+      ? await query("/forms/" + id, editPayload, "PATCH")
+      : await query("/forms", formState);
     if (!res) {
       setLoading(false);
       toast.error("An error occured !");
@@ -151,7 +158,9 @@ export default function CreateForm() {
     setLoading(false);
     setFormState(newState);
     navigate("/user");
-    toast.success("Successfully Created!");
+    id
+      ? toast.success("Successfully Updated")
+      : toast.success("Successfully Created!");
   };
 
   if (loading)
@@ -240,7 +249,7 @@ export default function CreateForm() {
             ))}
           </div>
         </div>
-        <div className="flex ml-auto gap-3 mr-3">
+        <div className="flex ml-auto gap-3 mr-3 mb-3">
           <Button
             onClick={handleSubmit}
             disabled={loading}

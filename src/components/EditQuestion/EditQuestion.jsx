@@ -4,6 +4,7 @@ import Dropdown from "../Dropdown/Dropdown";
 import Switch from "components/Switch/Switch";
 import { questionTypeEnum } from "utils/enums";
 import styles from "./EditQuestion.module.css";
+import { Trash2 } from "react-feather";
 
 const options = [
   { name: "Input Field", value: questionTypeEnum.input },
@@ -28,7 +29,6 @@ function EditQuestion({
   index,
   handleDelete,
 }) {
-  
   const [values, setValues] = useState({
     options: [],
     ...questionData,
@@ -77,7 +77,6 @@ function EditQuestion({
         <Dropdown
           label="Question Type"
           options={options}
-          labelClass={styles.label}
           dropdownClass={styles.dropdown}
           error={errors.type}
           selectedOption={
@@ -138,6 +137,15 @@ function EditQuestion({
                   setErrorValues((p) => ({ ...p, option: "" }));
                 }}
               />
+              <Trash2
+                className="cursor-pointer"
+                onClick={() => {
+                  setValues((prev) => ({
+                    ...prev,
+                    options: prev.options.filter((_, i) => i !== index),
+                  }));
+                }}
+              />
             </div>
           ))}
 
@@ -155,7 +163,7 @@ function EditQuestion({
         ""
       )}
 
-      <div className={styles.required}>
+      <div className="mt-3">
         <Switch
           label="Required Field"
           isToggled={values.required}

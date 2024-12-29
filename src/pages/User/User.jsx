@@ -14,6 +14,7 @@ import toast from "react-hot-toast";
 export default function User() {
   const navigate = useNavigate();
   const [showDialog, setShowDialog] = useState(false);
+  const [showSubmissionDialog, setShowSubmissionDialog] = useState(false);
   const [selectedFormId, setSelectedFormId] = useState(null);
   const [loading, setLoading] = useState(false);
   const [userForms, setUserForms] = useState([]);
@@ -29,6 +30,17 @@ export default function User() {
     setSelectedFormId(id);
     setShowDialog((prev) => !prev);
   };
+
+  const getFormSubmissions = async (id) => {
+    const res = await query("/submissions/form/" + id);
+    console.log("res", res);
+  };
+
+  const handleSubmissionDialog = (id) => {
+    getFormSubmissions(id);
+    setShowSubmissionDialog((prev) => !prev);
+  };
+
   // ****************************** integration part ************************************
   const logoutFunction = () => {
     localStorage.removeItem("token");
@@ -67,6 +79,7 @@ export default function User() {
       toast.error("Couldn't Delete. Try Again !");
       return;
     }
+    setSelectedFormId(null);
     setLoading(false);
     getFormOfUser();
     toast.success("Successfully Deleted!");
@@ -162,6 +175,7 @@ export default function User() {
                 <FormBox
                   data={item}
                   handleDialog={handleDialog}
+                  handleSubmissionDialog={handleSubmissionDialog}
                   index={index}
                 />
               ))}
@@ -171,11 +185,25 @@ export default function User() {
           )}
         </div>
       </div>
+      {showSubmissionDialog && (
+        <Dialog
+          closeDialog={() => setShowSubmissionDialog(false)}
+          dialogDetails={{
+            title: "Form Submission",
+            description: "Following are the form submissions",
+          }}
+        />
+      )}
       {showDialog && (
         <Dialog
-          closeDialog={handleDialog}
-          formId={selectedFormId}
-          onDelete={deleteForm}
+          closeDialog={() => setShowDialog(false)}
+          dialogDetails={{
+            title: "Delete Form",
+            description: "Are you sure you want to delete the form?",
+            formId: selectedFormId,
+            handleDelete: deleteForm,
+          }}
+          isDeleteDialog={true}
         />
       )}
     </div>

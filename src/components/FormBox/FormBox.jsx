@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import styles from "./FormBox.module.css";
 import { Eye, Trash2 } from "react-feather";
-import Button from "components/Button/Button";
 import { useNavigate } from "react-router-dom";
-export default function FormBox({ data, index, handleDialog }) {
+export default function FormBox({
+  data,
+  index,
+  handleDialog,
+  handleSubmissionDialog,
+}) {
   const navigate = useNavigate();
   const [urlToCopy, setUrlToCopy] = useState(false);
 
@@ -55,11 +59,14 @@ export default function FormBox({ data, index, handleDialog }) {
         <div className="flex gap-2 mt-2">
           <button
             className={`${styles.submitButton} cursor-pointer`}
-            onClick={() => navigate("/create-form/ " + data?._id)}
+            onClick={() => navigate("/create-form/" + data?._id)}
           >
             Edit
           </button>
-          <button className={`${styles.submitButton} cursor-pointer`}>
+          <button
+            className={`${styles.submitButton} cursor-pointer`}
+            onClick={() => handleSubmissionDialog(data?._id)}
+          >
             Submission
           </button>
           <button

@@ -6,7 +6,6 @@ export default function FormBox({
   data,
   index,
   handleDialog,
-  handleSubmissionDialog,
 }) {
   const navigate = useNavigate();
   const [urlToCopy, setUrlToCopy] = useState(false);
@@ -65,7 +64,7 @@ export default function FormBox({
           </button>
           <button
             className={`${styles.submitButton} cursor-pointer`}
-            onClick={() => handleSubmissionDialog(data?._id)}
+            onClick={() => navigate("/submissions/" + data?._id)}
           >
             Submission
           </button>

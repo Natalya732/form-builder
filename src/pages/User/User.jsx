@@ -14,7 +14,6 @@ import toast from "react-hot-toast";
 export default function User() {
   const navigate = useNavigate();
   const [showDialog, setShowDialog] = useState(false);
-  const [showSubmissionDialog, setShowSubmissionDialog] = useState(false);
   const [selectedFormId, setSelectedFormId] = useState(null);
   const [loading, setLoading] = useState(false);
   const [userForms, setUserForms] = useState([]);
@@ -31,15 +30,7 @@ export default function User() {
     setShowDialog((prev) => !prev);
   };
 
-  const getFormSubmissions = async (id) => {
-    const res = await query("/submissions/form/" + id);
-    console.log("res", res);
-  };
 
-  const handleSubmissionDialog = (id) => {
-    getFormSubmissions(id);
-    setShowSubmissionDialog((prev) => !prev);
-  };
 
   // ****************************** integration part ************************************
   const logoutFunction = () => {
@@ -175,7 +166,6 @@ export default function User() {
                 <FormBox
                   data={item}
                   handleDialog={handleDialog}
-                  handleSubmissionDialog={handleSubmissionDialog}
                   index={index}
                 />
               ))}
@@ -185,15 +175,7 @@ export default function User() {
           )}
         </div>
       </div>
-      {showSubmissionDialog && (
-        <Dialog
-          closeDialog={() => setShowSubmissionDialog(false)}
-          dialogDetails={{
-            title: "Form Submission",
-            description: "Following are the form submissions",
-          }}
-        />
-      )}
+  
       {showDialog && (
         <Dialog
           closeDialog={() => setShowDialog(false)}

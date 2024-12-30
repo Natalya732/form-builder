@@ -8,6 +8,7 @@ import Home from "./pages/home/Home";
 import CreateForm from "./pages/createForm/CreateForm";
 import User from "pages/User/User";
 import SavedFormViewer from "components/SavedFormViewer";
+import AllSubmissions from "pages/AllSubmissions/AllSubmissions";
 
 export default function App() {
   const router = createBrowserRouter([
@@ -32,9 +33,13 @@ export default function App() {
       element: <User />,
     },
     {
+      path: "/submissions/:formId?",
+      element: <AllSubmissions />,
+    },
+    {
       path: "/forms/:id?",
       element: <SavedFormViewer />,
-    },
+    }
   ]);
 
   return (

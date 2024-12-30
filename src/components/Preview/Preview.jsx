@@ -13,6 +13,7 @@ export default function Preview({
   formState: formInitialData,
   onClose,
   formId,
+  submission,
 }) {
   const navigate = useNavigate();
   const [formState, setFormState] = useState(formInitialData || null);
@@ -20,6 +21,7 @@ export default function Preview({
   const [loading, setLoading] = useState(false);
 
   // ****************************** Get form By Id ********************************************
+
   useEffect(() => {
     const getFormQuery = async () => {
       if (!formId) return;
@@ -37,6 +39,8 @@ export default function Preview({
 
     getFormQuery();
   }, [formId]);
+
+  useEffect(() => setAnswers(submission.answers), [submission]);
 
   const submitMutation = async () => {
     setLoading(true);
@@ -117,6 +121,7 @@ export default function Preview({
         <div className={styles.customInputGroup} key={question.id}>
           <InputControl
             label={question.title}
+            readOnly={submission}
             inputClass={styles.input}
             labelClass={styles.label}
             type={question.inputType}
@@ -133,6 +138,7 @@ export default function Preview({
         <div className={styles.customInputGroup} key={question.id}>
           <TextareaControl
             label={question.title}
+            readOnly={submission}
             className={styles.textarea}
             labelClass={styles.label}
             required={question.required}
@@ -161,7 +167,18 @@ export default function Preview({
                   name={`radio-${question.id}-${question.index}`}
                   className={styles.optionLabel}
                   value={item}
-                  onChange={(e) => handleCheckboxChange(e.target, question._id)}
+                  checked={
+                    answers
+                      .find((item) => item.questionId === question._id)
+                      ?.answer.includes(item) ||
+                    answers.find((item) => item.questionId === question._id)
+                      ?.answer === item
+                  }
+                  onChange={(e) => {
+                    submission
+                      ? console.log("cannot change value, already submitted")
+                      : handleCheckboxChange(e.target, question._id);
+                  }}
                 ></input>
                 <label htmlFor={`radio-${question.id}-${index}`}>{item}</label>
               </div>
@@ -196,7 +213,7 @@ export default function Preview({
           <div className={styles.formBody}>
             {formState.questions.map(renderQuestion)}
           </div>
-          {!noQuestionsPresent && formId && (
+          {!noQuestionsPresent && formId && !submission && (
             <Button onClick={() => submitMutation()}>Submit</Button>
           )}
         </div>

@@ -114,7 +114,6 @@ export default function CreateForm() {
       return true;
     }
   };
-  console.log("id", id);
   // ***************************************************************  Integration ***************************************************************
 
   useEffect(() => {
